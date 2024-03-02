@@ -1,0 +1,27 @@
+const dpConnection=require('./config/databse')
+const mongoose=require('mongoose')
+const cors=require('cors')
+const express=require('express')
+const categoryRoute=require('./routes/categoryRoute')
+const productRoute=require('./routes/productRoute')
+const userRoute=require('./routes/userRoute')
+const authRoute=require('./routes/authRoute')
+const cartRoute=require('./routes/cartRoute')
+const cashRoute=require('./routes/cashRoute')
+
+dpConnection()
+const app=express()
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
+app.use(cors({origin:'*',methods:'*'}))
+
+app.use("/api/v2/categories",categoryRoute)
+app.use("/api/v2/products",productRoute)
+app.use("/api/v2/users",userRoute)
+app.use("/api/v2/auth",authRoute)
+app.use("/api/v2/cart",cartRoute)
+app.use("/api/v2/cash",cashRoute)
+
+app.listen(2222,()=>{
+    console.log('server is running ...')
+})
